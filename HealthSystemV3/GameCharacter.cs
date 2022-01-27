@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace HealthSystemV3
 {
@@ -11,6 +12,7 @@ namespace HealthSystemV3
         public int currentHealth;
         public int currentShield;
         public int maxHealth;
+        public int maxShield;
 
         public void RegenSheild(int sp)
         {
@@ -18,11 +20,11 @@ namespace HealthSystemV3
             {
                 currentShield = currentShield + sp;
             }
-            if (currentShield >= 100)
+            if (currentShield >= maxShield)
             {
-                currentShield = 100;
+                currentShield = maxShield;
             }
-            ShowStats();
+            //ShowStats();
         }
 
         public void RegenHealth(int hp)
@@ -31,11 +33,11 @@ namespace HealthSystemV3
             {
                 currentHealth = currentHealth + hp;
             }
-            if (currentHealth >= 100)
+            if (currentHealth >= maxHealth)
             {
-                currentHealth = 100;
+                currentHealth = maxHealth;
             }
-            ShowStats();
+            //ShowStats();
         }
 
         public void TakeDamage(int damageTaken)
@@ -58,7 +60,7 @@ namespace HealthSystemV3
                     Respawn();
                 }
             }
-            ShowStats();
+            //ShowStats();
         }
 
         public void ShowStats()
@@ -72,9 +74,9 @@ namespace HealthSystemV3
         }
         public void Respawn()
         {
-            currentHealth = 100;
-            currentShield = 100;
-            ShowStats();
+            currentHealth = maxHealth;
+            currentShield = maxShield;
+            //ShowStats();
         }
     }
 }
