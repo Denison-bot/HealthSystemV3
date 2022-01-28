@@ -7,15 +7,22 @@ using System.Diagnostics;
 
 namespace HealthSystemV3
 {
-    class GameCharacter
+    abstract class GameCharacter
     {
         public int currentHealth;
         public int currentShield;
         public int maxHealth;
         public int maxShield;
+        public int minHealth;
+        public int minSheild;
+        public bool dead = false;
 
-        public void RegenSheild(int sp)
+        public void RegenShield(int sp)
         {
+            if (sp >= 2000000000)
+            {
+                sp = 10000000;
+            }
             if (sp >= 0)
             {
                 currentShield = currentShield + sp;
@@ -29,6 +36,10 @@ namespace HealthSystemV3
 
         public void RegenHealth(int hp)
         {
+            if (hp >= 2000000000)
+            {
+                hp = 10000000;
+            }
             if (hp >= 0)
             {
                 currentHealth = currentHealth + hp;
@@ -37,11 +48,21 @@ namespace HealthSystemV3
             {
                 currentHealth = maxHealth;
             }
+            if (currentHealth <= minHealth)
+            {
+                currentHealth = minHealth;
+            }
+
             //ShowStats();
         }
 
         public void TakeDamage(int damageTaken)
         {
+            if (damageTaken >= 2000000000)
+            {
+                damageTaken = 10000000;
+            }
+
             if (damageTaken >= 0)
             {
                 currentShield = currentShield - damageTaken;
@@ -56,8 +77,8 @@ namespace HealthSystemV3
                 if (currentHealth <= 0)
                 {
                     currentHealth = 0;
-                    Console.WriteLine("Dead--Respawning");
-                    Respawn();
+                    Console.WriteLine("Dead");
+                    //Respawn();
                 }
             }
             //ShowStats();
@@ -70,6 +91,7 @@ namespace HealthSystemV3
             Console.WriteLine("Health = " + currentHealth);
             Console.WriteLine("Shield = " + currentShield);
             Console.WriteLine("------------------------------------------");
+            Console.WriteLine();
             Console.ReadKey(true);
         }
         public void Respawn()
